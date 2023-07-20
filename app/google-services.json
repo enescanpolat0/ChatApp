@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "622036842673",
+    "project_id": "chatapp-24a78",
+    "storage_bucket": "chatapp-24a78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622036842673:android:1d7fc050be75e91d2d0a90",
+        "android_client_info": {
+          "package_name": "com.enescanpolat.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622036842673-3bkngt3usida11i933n0hv6at63prmoa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdnf8loa3YKXrPbcXrlUG6UufYfav6ULc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622036842673-3bkngt3usida11i933n0hv6at63prmoa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
