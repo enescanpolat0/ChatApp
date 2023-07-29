@@ -2,6 +2,7 @@ package com.enescanpolat.chatapp.data.repository
 
 import com.enescanpolat.chatapp.data.localdatabase.UserDao
 import com.enescanpolat.chatapp.domain.model.ModelChat
+import com.enescanpolat.chatapp.domain.model.ModelMessage
 import com.enescanpolat.chatapp.domain.model.User
 import com.enescanpolat.chatapp.domain.repository.UserRepository
 import com.enescanpolat.chatapp.util.Resource
@@ -95,6 +96,41 @@ class UserRepositoryImpl @Inject constructor(private val firestore: FirebaseFire
         }
     }
 
+    override fun getAllMessagesOfChat(chatId: String): Flow<Resource<List<ModelMessage>>> = callbackFlow {
+        try {
+            trySend(Resource.Loading())
+
+            val listener= firestore.collection("chats").document(chatId).collection("messages").addSnapshotListener { snapshot, exception->
+
+                    if (exception!=null){
+                        trySend(Resource.Error(exception.localizedMessage?:"Error"))
+                        return@addSnapshotListener
+                    }
+                    snapshot?.let {documents->
+
+                        val messages= mutableListOf<ModelMessage>()
+                        for (document in documents){
+
+                            val messageModel = getMessageFromDocument(document)
+                            messages.add(messageModel)
+
+                        }
+                        trySend(Resource.Success(messages))
+
+                    }
+
+            }
+              awaitClose{
+                listener.remove()
+              }
+
+
+
+        }catch (e:Exception){
+            trySend(Resource.Error(e.localizedMessage?:"Error"))
+        }
+    }
+
     private fun getChatFromDocument(document: QueryDocumentSnapshot):ModelChat{
         return ModelChat(
             chatId = document.id,
@@ -115,4 +151,15 @@ class UserRepositoryImpl @Inject constructor(private val firestore: FirebaseFire
             userId = document.id
         )
     }
+
+
+    private fun getMessageFromDocument(document: QueryDocumentSnapshot):ModelMessage{
+        return ModelMessage(
+            messageData = document.get("messageData").toString(),
+            messageType = document.get("messageType").toString(),
+            messageReciver = document.get("messageReciver").toString(),
+            messageSender = document.get("messageSender").toString()
+        )
+    }
+
 }
