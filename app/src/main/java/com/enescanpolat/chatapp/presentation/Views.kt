@@ -15,4 +15,9 @@ interface Views {
     fun openHomePageLayout(){}
 
     fun showHomePage(){}
+
+    fun getUserId():String
+
+    fun onBackPressed(){}
+
 }

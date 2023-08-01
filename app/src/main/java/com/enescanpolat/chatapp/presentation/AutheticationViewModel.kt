@@ -74,6 +74,8 @@ class AutheticationViewModel @Inject constructor(private val authUseCase:Autheti
 
     fun isUserAuthenticated()=authUseCase.isUserAuthenticated()
 
+    fun getUserId()=authUseCase.getUserId()
+
 
 
 

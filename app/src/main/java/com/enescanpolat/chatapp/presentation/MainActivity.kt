@@ -126,6 +126,18 @@ class MainActivity : AppCompatActivity(),Views {
         binding.etName.visibility=View.GONE
     }
 
+    override fun getUserId(): String {
+        return autheticationViewModel.getUserId()
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount>0){
+            supportFragmentManager.popBackStack()
+        }else{
+            super<Views>.onBackPressed()
+        }
+    }
+
 
 
 }
